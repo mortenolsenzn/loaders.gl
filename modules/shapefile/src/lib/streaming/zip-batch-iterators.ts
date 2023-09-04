@@ -1,3 +1,5 @@
+import type {ObjectRowTableBatch} from '@loaders.gl/schema';
+
 /**
  * Zip two iterators together
  *
@@ -5,11 +7,11 @@
  * @param iterator2
  */
 export async function* zipBatchIterators(
-  iterator1: AsyncIterator<any[]>,
-  iterator2: AsyncIterator<any[]>
-): AsyncGenerator<number[][], void, unknown> {
-  let batch1: number[] = [];
-  let batch2: number[] = [];
+  iterator1: AsyncIterator<ObjectRowTableBatch>,
+  iterator2: AsyncIterator<ObjectRowTableBatch>
+): AsyncGenerator<ObjectRowTableBatch, void, unknown> {
+  let batch1: ObjectRowTableBatch = {batchType: 'data', shape: 'object-row-table', length: 0, data: []};
+  let batch2: ObjectRowTableBatch = {batchType: 'data', shape: 'object-row-table', length: 0, data: []};
   let iterator1Done: boolean = false;
   let iterator2Done: boolean = false;
 
@@ -32,9 +34,13 @@ export async function* zipBatchIterators(
       }
     }
 
-    const batch = extractBatch(batch1, batch2);
+    const batch = extractBatchData(batch1.data, batch2.data);
     if (batch) {
-      yield batch;
+      yield {
+        batchType: 'data', 
+        shape: 'object-row-table', 
+        length: 0, 
+        data: batch
     }
   }
 }
@@ -46,14 +52,14 @@ export async function* zipBatchIterators(
  * @param batch2
  * @return array | null
  */
-function extractBatch(batch1: number[], batch2: number[]): number[][] | null {
+function extractBatchData(batch1: unknown[], batch2: unknown[]): unknown[][] | null {
   const batchLength: number = Math.min(batch1.length, batch2.length);
   if (batchLength === 0) {
     return null;
   }
 
   // Non interleaved arrays
-  const batch: number[][] = [batch1.slice(0, batchLength), batch2.slice(0, batchLength)];
+  const batch: unknown[][] = [batch1.slice(0, batchLength), batch2.slice(0, batchLength)];
 
   // Modify the 2 batches
   batch1.splice(0, batchLength);

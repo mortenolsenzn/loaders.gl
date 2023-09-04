@@ -1,4 +1,4 @@
-export default class BinaryReader {
+export class BinaryReader {
   offset: number;
   arrayBuffer: ArrayBuffer;
 

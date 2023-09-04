@@ -1,6 +1,6 @@
 // @ts-nocheck
 import test from 'tape-promise/tape';
-import BinaryChunkReader from '@loaders.gl/shapefile/lib/streaming/binary-chunk-reader';
+import {BinaryChunkReader} from '@loaders.gl/shapefile/lib/streaming/binary-chunk-reader';
 
 const buf1 = new Uint8Array([1, 2, 3]).buffer;
 const buf2 = new Uint8Array([4, 5, 6]).buffer;

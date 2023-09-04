@@ -4,8 +4,11 @@
   "exclude": ["node_modules"],
   "compilerOptions": {
     "composite": true,
-    "rootDir": "src",
-    "outDir": "dist"
+    "rootDirs": ["src", "test"],
+    "outDir": "dist",
+    "paths": {
+      "@loaders.gl/shapefile": ["src"],
+    }
   },
   "references": [
     {"path": "../gis"},

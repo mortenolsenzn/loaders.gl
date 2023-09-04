@@ -1,5 +1,7 @@
-import {BinaryGeometry, BinaryGeometryType} from '@loaders.gl/schema';
-import {SHPLoaderOptions} from './types';
+// loaders.gl, MIT license
+
+import type {BinaryGeometry, BinaryGeometryType} from '@loaders.gl/schema';
+import {SHPLoaderOptions} from '../../shp-loader';
 
 const LITTLE_ENDIAN = true;
 

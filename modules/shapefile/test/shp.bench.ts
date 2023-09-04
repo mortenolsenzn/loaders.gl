@@ -12,12 +12,12 @@ export default async function shpLoaderBench(suite) {
   suite.group('SHPLoader');
 
   suite.addAsync(
-    `parse(SHPLoader without worker)`,
+    'parse(SHPLoader without worker)',
     {multiplier: 77, unit: 'MB'},
     async () => await parse(arrayBuffer, SHPLoader, {worker: false})
   );
   suite.addAsync(
-    `parseInBatches(SHPLoader without worker)`,
+    'parseInBatches(SHPLoader without worker)',
     {multiplier: 77, unit: 'MB'},
     async () => await parseInBatches(arrayBuffer, SHPLoader, {worker: false})
   );
